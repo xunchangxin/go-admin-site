@@ -53,18 +53,8 @@ module.exports = {
               title: '其他',
               collapsable: false,
               children: [
-                '/guide/other/gitter.md',
-                '/guide/other/release-notes.md'
               ]
             }
-          ],
-          '/feature/component/': getComponentSidebar(
-            deepClone(ComponentNav),
-            'EN'
-          ),
-          '/feature/script/': [
-            '/feature/script/svgo.md',
-            '/feature/script/new.md'
           ]
         }
       },
@@ -92,8 +82,7 @@ module.exports = {
               title: 'Other',
               collapsable: false,
               children: [
-                '/en/guide/other/faq.md',
-                '/en/guide/other/release-notes.md'
+                
               ]
             }
           ]
