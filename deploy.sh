@@ -16,8 +16,8 @@ git init
 git add -A
 git commit -m 'deploy'
 
-# git push -f "https://${access_token}@github.com/wenjianzhang/enjianzhang.github.io.git" master:gh-pages
+git push -f git@github.com:wenjianzhang/go-admin-site.git master:gh-pages
 
-git push -f git@github.com:wenjianzhang/wenjianzhang.github.io.git master
+#git push -f git@github.com:wenjianzhang/wenjianzhang.github.io.git master
 
 cd -
