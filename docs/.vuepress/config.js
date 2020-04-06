@@ -53,6 +53,7 @@ module.exports = {
               title: '其他',
               collapsable: false,
               children: [
+                '/guide/other/faq.md'
               ]
             }
           ]
