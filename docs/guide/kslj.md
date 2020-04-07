@@ -1,7 +1,7 @@
 # 了解
 
 ## 项目简介
-------
+
 go-admin 是基于Gin + Vue + Element UI的中后台管理系统开发脚手架。
 
 * go-admin 官网地址：[http://www.zhangwj.com](http://www.zhangwj.com)
