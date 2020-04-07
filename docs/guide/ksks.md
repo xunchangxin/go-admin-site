@@ -11,6 +11,7 @@ mkdir src
 cd ./src
 ```
 > 为什么要设置src目录
+
 因为 GO 的包搜索是从 GOPATH 和 GOROOT 路径下搜索，源码必须要放在 GOROOT 或 GOPATH 的 src 目录下才能找到。但把源码和包放在一起，对于很多人来说确实不太很习惯，有一种做法，通过在 GOPATH 中设置两个路径，go get 下载的包默认放在 GOPATH 设置的第一个路径下。比如，GOPATH 设置如下：
 
 ```shell
