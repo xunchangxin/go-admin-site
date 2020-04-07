@@ -7,14 +7,13 @@ pageClass: getting-started
 
 ![build](https://github.com/wenjianzhang/go-admin/workflows/build/badge.svg)   ![license](https://img.shields.io/github/license/mashape/apistatus.svg) 
 
-<!-- <CodingAD /> -->
 
 [go-admin](https://github.com/wenjianzhang/go-admin) 是一个中后台管理系统，基于（gin, gorm, Casbin, Vue, Element UI）实现。主要目的是为了让开发者更专注业务，减少重复代码的编写，节省时间，提升人效，缩短项目周期，提升软件的开发效率以及质量。
 
 
 ## 在线体验
 
-1. 体验地址： http://www.zhangwj.com
+1. 体验地址： [http://www.zhangwj.com](http://www.zhangwj.com)
 2. 账号密码：admin/123456
 
 
@@ -26,7 +25,7 @@ pageClass: getting-started
 
 <br/>
 
-## 联系我们
+## 互动交流
 
 <table>
   <tr>
@@ -40,3 +39,5 @@ pageClass: getting-started
 </table>
   
 <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=1affb445445bd442312fcad9a927007db74a0cd4380bbc08a6c97d2691744869"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="go-admin技术交流" title="go-admin技术交流"></a>
+
+欢迎大家进去微信或qq群交流沟通，同时也希望大家[提交建议](https://github.com/wenjianzhang/go-admin/issues/new)
