@@ -73,25 +73,18 @@ settings:
     username: root
 ```
 
-:::tip
+> 首先，需要修改数据库信息：
 
-首先，需要修改数据库信息：
-
+```说明
 database: 节点下是数据库配置类信息
-
 database.database: 数据库名称
-
 database.dbtype: 数据库类型。目前支持：mysql、sqlite3
-
 database.host: 数据库地址，填写网络ip地址或者域名、sqlite3请填写文件路径。mysql类型，如：127.0.0.1；sqlite3类型，如：sqlite3.db
-
 database.password: 数据库密码
-
 database.port: 数据库端口号
-
 database.username: 数据库用户名
+```
 
-:::
 
 ### 启动
 
@@ -180,3 +173,7 @@ npm run dev
 :::tip
 此时项目已经启动了，但是有一点请注意：检查api是否也启动了。否则页面会提示错误的哦。
 :::
+
+## 搞定
+
+搞定，现在你可以go-admin 之旅！
