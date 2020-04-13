@@ -4,9 +4,16 @@ pageClass: getting-started
 
 # 介绍
 
+<a href="https://github.com/wenjianzhang/go-admin">
+  <img src="https://github.com/wenjianzhang/go-admin/workflows/build/badge.svg" alt="go-admin">
+</a>
 
-![build](https://github.com/wenjianzhang/go-admin/workflows/build/badge.svg)   ![license](https://img.shields.io/github/license/mashape/apistatus.svg) 
-
+<a href="https://github.com/wenjianzhang/go-admin">
+  <img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license">
+</a>
+  <a href="http://doc.zhangwj.com/go-admin-site/donate/">
+  <img src="https://img.shields.io/badge/%24-donate-ff69b4.svg" alt="donate">
+</a>
 
 [go-admin](https://github.com/wenjianzhang/go-admin) 是一个中后台管理系统，基于（gin, gorm, Casbin, Vue, Element UI）实现。主要目的是为了让开发者更专注业务，减少重复代码的编写，节省时间，提升人效，缩短项目周期，提升软件的开发效率以及质量。
 

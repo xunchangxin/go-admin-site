@@ -15,6 +15,28 @@ go-admin 是基于Gin + Vue + Element UI的中后台管理系统开发脚手架�
 
 go-admin 是一个go语言开发的企业级快速开发平台，使用了Gin，casbin，gorm，Vue，Element UI，并且也内置了一些模块，如：用户管理、部门管理、角色用户、菜单及按钮授权、数据权限、系统参数、日志管理等。
 
+## 特性
+
+- 遵循 RESTful API 设计规范
+
+- 基于 GIN WEB API 框架，提供了丰富的中间件支持（用户认证、跨域、访问日志、追踪ID等）
+
+- 基于Casbin的 RBAC 访问控制模型
+
+- JWT 认证
+
+- 支持 Swagger 文档(基于swaggo)
+
+- 基于 GORM 的数据库存储，可扩展多种类型数据库 
+
+- 配置文件简单的模型映射，快速能够得到想要的配置
+
+- 代码生成工具
+
+- 表单构建工具
+
+- TODO: 单元测试
+
 
 ## 内置功能
 
@@ -30,3 +52,47 @@ go-admin 是一个go语言开发的企业级快速开发平台，使用了Gin，
 10. 系统接口：根据业务代码自动生成相关的api接口文档。
 11. 代码生成：根据数据表结构生成对应的增删改查相对应业务，全部可视化编程。
 12. 表单构建：自定义页面样式，拖拉拽实现页面布局。
+13. 服务监控：查看一些服务器的基本信息。
+
+## 配置详情
+
+1. 配置文件说明
+```yml
+settings:
+  application:  
+    # 项目启动环境            
+    env: dev  
+    # 当 env:demo 时，GET以外的请求操作提示
+    envmsg: "谢谢您的参与，但为了大家更好的体验，所以本次提交就算了吧！" 
+    # 主机ip 或者域名，默认0.0.0.0
+    host: 0.0.0.0 
+    # 是否需要初始化数据库结构以及基本数据；true：需要；false：不需要 
+    isinit: false  
+    # log存放路径
+    logpath: temp/logs/log.log   
+    # 服务名称
+    name: go-admin   
+    # 服务端口
+    port: 8000   
+    readtimeout: 1   
+    writertimeout: 2 
+  jwt:
+    # JWT加密字符串
+    jwtsecret: go-admin
+    # 过期时间单位：秒
+    timeout: 3600
+  database:
+    # 数据库名称
+    database: dbname 
+    # 数据库类型
+    dbtype: mysql    
+    # 数据库地址
+    host: 127.0.0.1  
+    # 数据库密码
+    password: password  
+    # 数据库端口
+    port: 3306       
+    # 数据库用户名
+    username: root   
+```
+
