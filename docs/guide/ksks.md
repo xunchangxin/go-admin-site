@@ -1,8 +1,8 @@
-# 开始
+# 快速开始
 
-## 服务端
+## 服务
 
-### 选择工作路径
+### 设置工作路径
 
 ```shell
 mkdir goadmin
@@ -35,42 +35,44 @@ go build
 
 ### 设置数据库
 
-首先找到配置文件，`config/settings.yml`
+首先找到配置文件，`config/settings.yml`， 同时也可创建开发环境配置，只需将默认配置文件 `config/settings.yml` 复制到 `config/settings.dev.yml` 就好了
+
+<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/configv1.0.0.png"  height="500px" style="margin:0 auto;">
+
 
 ```yml
 settings:
   application:  
-    # 项目启动环境
-    env: dev  
-    # 当 env:demo 时，GET以外的请求操作提示
-    envmsg: "谢谢您的参与，但为了大家更好的体验，所以本次提交就算了吧！"
-    # 主机ip 或者域名，默认0.0.0.0
-    host: 0.0.0.0
-    # 是否需要初始化数据库结构以及基本数据；true：需要；false：不需要
-    isinit: false  
-    # JWT加密字符串
-    jwtsecret: 123abc  
-    # log存放路径
-    logpath: temp/logs/log.log
+    # 项目启动环境            
+    mode: dev  # dev开发环境 test测试环境 prod线上环境；
+    host: 0.0.0.0  # 主机ip 或者域名，默认0.0.0.0
     # 服务名称
-    name: go-admin
+    name: go-admin   
     # 服务端口
-    port: 8000
-    readtimeout: 1
-    writertimeout: 2
+    port: 8000   
+    readtimeout: 1   
+    writertimeout: 2 
+  log:
+    # 日志文件存放路径
+    dir: temp/logs
+  jwt:
+    # JWT加密字符串
+    secret: go-admin
+    # 过期时间单位：秒
+    timeout: 3600
   database:
     # 数据库名称
-    database: dbname
+    name: dbname 
     # 数据库类型
-    dbtype: mysql
+    dbtype: mysql    
     # 数据库地址
     host: 127.0.0.1  
     # 数据库密码
     password: password  
     # 数据库端口
-    port: 3306
+    port: 3306       
     # 数据库用户名
-    username: root
+    username: root   
 ```
 
 > 首先，需要修改数据库信息：
@@ -78,42 +80,81 @@ settings:
 ```说明
 database: 节点下是数据库配置类信息
 database.database: 数据库名称
-database.dbtype: 数据库类型。目前支持：mysql、sqlite3
-database.host: 数据库地址，填写网络ip地址或者域名、sqlite3请填写文件路径。mysql类型，如：127.0.0.1；sqlite3类型，如：sqlite3.db
+database.dbtype: 数据库类型。目前支持：mysql
+database.host: 数据库地址，填写网络ip地址或者域名。mysql类型，如：127.0.0.1；
 database.password: 数据库密码
 database.port: 数据库端口号
 database.username: 数据库用户名
 ```
 
+### 数据库结构初始化
+
+项目中支持使用命令方式初始化基本数据结构和基础数据。 可以方便的使用 `init` 命令进行项目数据库结构和数据初始化。如下操作：
+
+```shell
+./go-admin init -c=config/settings.dev.yml
+```
+
+:::tip
+可以通过 -c 参数实现本地多环境配置文件隔离 例如 开发环境命名为：settings.dev.yml
+:::
 
 ### 启动
+
+初始化完成之后，我们就可以启动项目了，在这里需要注意一点，正常大家启动项目的方式是这样的 `./go-admin` , 哦哦 系统报错了，我们尝试一下 `./go-admin`
 
 ```shell
 ./go-admin
 ```
+
+下图是输出内容：
+
+<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/runv1.0.0noarg.png"  height="100px" style="margin:0 auto;">
+
+
+输出内容告诉我们：Error: requires at least one arg ，至少有一个参数；
+
+你也可以使用` ./go-admin -h ` 来查看帮助；
+
+上面讲完之后，我们就可以使用自己的启动语句来启动项目了，
+
+```shell
+./go-admin server -c=config/settings.dev.yml
+```
+
+如果看到一下数据内容，请检查一下数据库配置；
 
 ```shell
 2020/04/06 23:38:52 root:password@tcp(127.0.0.1:3306)/dbname
 2020/04/06 23:38:52 mysql connect error %v dial tcp 127.0.0.1:3306: connect: connection refused
 ```
 
-:::tip
-输出结果，具体原因是因为我们需要修改配置文件进行数据库初始化。
-:::
+输出内容为下图，恭喜你！你已经成功了！
 
-## UI
+<img class="no-margin" src="
+https://gitee.com/mydearzwj/image/raw/master/img/serversuccessv1.0.0.png"  height="500px" style="margin:0 auto;">
 
-### 选择UI工作路径
+go，下一步启动前端项目！
+
+## 视图
+
+### 设置视图工作路径
+
+返回上上级目录
 
 ```shell
 cd ../../
 ```
 
-### 下载UI源码
+### 下载视图源码
+
+这里我们直接`git clone`下来。
 
 ```shell
 git clone https://github.com/wenjianzhang/go-admin-ui.git
 ```
+
+输出内容：
 
 ```shell
 $ git clone https://github.com/wenjianzhang/go-admin-ui.git
@@ -133,7 +174,9 @@ Resolving deltas: 100% (127/127), done.
 ```shell
  cd go-admin-ui/
 
- npm i  # 国内请使用 --registry=https://registry.npm.taobao.org
+ npm i  
+
+ # npm i   --registry=https://registry.npm.taobao.org   # 国内请使用  
 
  ```
 
@@ -151,6 +194,8 @@ added 2033 packages from 1953 contributors in 40.229s
 ```
 
 ### 启动
+
+启动项目，使用`npm run dev`命令就好了。
 
 ```shell
 npm run dev

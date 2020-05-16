@@ -117,7 +117,8 @@ function genEssentialsSidebar(type = '') {
     '/guide/kslj.md',
     '/guide/ksks.md',
     '/guide/hjbs.md',
-    '/guide/intro/tutorial01.md',
+    '/guide/spjc.md',
+    //'/guide/intro/tutorial01.md',
   ]
   return mapArr.map(i => {
     return type + i

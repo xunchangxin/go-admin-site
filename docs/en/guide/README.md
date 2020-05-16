@@ -2,7 +2,7 @@
 pageClass: getting-started
 ---
 
-# 介绍
+# 项目介绍
 
 
 ![build](https://github.com/wenjianzhang/go-admin/workflows/build/badge.svg)   ![license](https://img.shields.io/github/license/mashape/apistatus.svg) 
@@ -29,8 +29,8 @@ pageClass: getting-started
 
 <table>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/wenjianzhang/go-admin/master/demo/wx.png" width="180px"></td>
-    <td><img src="https://raw.githubusercontent.com/wenjianzhang/go-admin/master/demo/qq.png" width="200px"></td>
+    <td><img src="https://gitee.com/mydearzwj/image/raw/master/img/wx.png" width="180px"></td>
+    <td><img src="https://gitee.com/mydearzwj/image/raw/master/img/qq.png" width="200px"></td>
   </tr>
   <tr>
     <td>微信</td>

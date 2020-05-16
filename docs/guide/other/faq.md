@@ -72,3 +72,15 @@ $ ./go-admin
 :::tip 从哪里获得帮助：
 如果你在阅读本教程的过程中有任何疑问，可以前往[提交建议](https://github.com/wenjianzhang/go-admin/issues/new)。
 :::
+
+
+### 使用element-ui的el-tree组件 setCheckedKeys 
+
+```
+"TypeError: Cannot read property 'setCheckedKeys' of undefined"
+```
+
+解决方案
+```
+
+```
