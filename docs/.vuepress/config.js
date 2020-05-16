@@ -50,6 +50,11 @@ module.exports = {
               children: genEssentialsSidebar()
             },
             {
+              title: '第一个go-admin应用',
+              collapsable: false,
+              children: genAdvancedSidebar()
+            },
+            {
               title: '其他',
               collapsable: false,
               children: [
@@ -78,6 +83,11 @@ module.exports = {
               title: 'Docment',
               collapsable: false,
               children: genEssentialsSidebar('/en')
+            },
+            {
+              title: 'First go admin app',
+              collapsable: false,
+              children: genAdvancedSidebar('/en')
             },
             {
               title: 'Other',
@@ -127,18 +137,8 @@ function genEssentialsSidebar(type = '') {
 
 function genAdvancedSidebar(type = '') {
   const mapArr = [
-    '/guide/advanced/cors.md',
-    '/guide/advanced/eslint.md',
-    '/guide/advanced/git-hook.md',
-    '/guide/advanced/style-guide.md',
-    '/guide/advanced/lazy-loading.md',
-    '/guide/advanced/chart.md',
-    '/guide/advanced/icon.md',
-    '/guide/advanced/cdn.md',
-    '/guide/advanced/theme.md',
-    '/guide/advanced/i18n.md',
-    '/guide/advanced/error.md',
-    '/guide/advanced/webpack.md'
+    '/guide/intro/tutorial01.md',
+    '/guide/intro/tutorial02.md',
   ]
   return mapArr.map(i => {
     return type + i
