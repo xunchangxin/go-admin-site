@@ -2,7 +2,7 @@
 pageClass: getting-started
 ---
 
-# 介绍
+# 项目介绍
 
 
 ![build](https://github.com/wenjianzhang/go-admin/workflows/build/badge.svg)   ![license](https://img.shields.io/github/license/mashape/apistatus.svg) 

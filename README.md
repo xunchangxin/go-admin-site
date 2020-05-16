@@ -1,7 +1,7 @@
 # go-admin-site
-The documentation source of [go-admin](https://github.com/wenjianzhang/go-admin)
+The documentation source of [go-admin]( https://github.com/wenjianzhang/go-admin )
 
-[Online](https://wenjianzhang.github.io/go-admin-site)
+[Online]( https://wenjianzhang.github.io/go-admin-site )
 
 ## Development
 
@@ -16,6 +16,6 @@ npm install
 npm run dev
 ```
 
-open http://localhost:8080/go-admin-site
+open http://localhost:8080/go-admin-site 
 
 > Generator by [vuepress](https://github.com/vuejs/vuepress)

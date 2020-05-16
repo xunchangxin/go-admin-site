@@ -44,3 +44,15 @@ sudo xcode-select --reset
 :::tip
 原因是Mac升级后，缺了xcode 的CLI 工具, 只要执行下面的命令来安装就可以了。
 :::
+
+
+### 使用element-ui的el-tree组件 setCheckedKeys 
+
+```
+"TypeError: Cannot read property 'setCheckedKeys' of undefined"
+```
+
+解决方案
+```
+
+```

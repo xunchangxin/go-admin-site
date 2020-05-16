@@ -1,6 +1,6 @@
-# 了解
+# 项目简介
 
-## 项目简介
+## 说明
 
 go-admin 是基于Gin + Vue + Element UI的中后台管理系统开发脚手架。
 
@@ -10,7 +10,7 @@ go-admin 是基于Gin + Vue + Element UI的中后台管理系统开发脚手架�
 
 * go-admin 源码下载：[https://github.com/wenjianzhang/go-admin](https://github.com/wenjianzhang/go-admin)
 
-* QQ群号： 74520518
+* QQ群号： 74520518（已满）、521386980
 
 
 go-admin 是一个go语言开发的企业级快速开发平台，使用了Gin，casbin，gorm，Vue，Element UI，并且也内置了一些模块，如：用户管理、部门管理、角色用户、菜单及按钮授权、数据权限、系统参数、日志管理等。
@@ -38,7 +38,7 @@ go-admin 是一个go语言开发的企业级快速开发平台，使用了Gin，
 - TODO: 单元测试
 
 
-## 内置功能
+## 内置
 
 1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
 2.  部门管理：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限。
@@ -54,36 +54,32 @@ go-admin 是一个go语言开发的企业级快速开发平台，使用了Gin，
 12. 表单构建：自定义页面样式，拖拉拽实现页面布局。
 13. 服务监控：查看一些服务器的基本信息。
 
-## 配置详情
+## 配置
 
 1. 配置文件说明
 ```yml
 settings:
   application:  
     # 项目启动环境            
-    env: dev  
-    # 当 env:demo 时，GET以外的请求操作提示
-    envmsg: "谢谢您的参与，但为了大家更好的体验，所以本次提交就算了吧！" 
-    # 主机ip 或者域名，默认0.0.0.0
-    host: 0.0.0.0 
-    # 是否需要初始化数据库结构以及基本数据；true：需要；false：不需要 
-    isinit: false  
-    # log存放路径
-    logpath: temp/logs/log.log   
+    mode: dev  # dev开发环境 test测试环境 prod线上环境；
+    host: 0.0.0.0  # 主机ip 或者域名，默认0.0.0.0
     # 服务名称
     name: go-admin   
     # 服务端口
     port: 8000   
     readtimeout: 1   
     writertimeout: 2 
+  log:
+    # 日志文件存放路径
+    dir: temp/logs
   jwt:
     # JWT加密字符串
-    jwtsecret: go-admin
+    secret: go-admin
     # 过期时间单位：秒
     timeout: 3600
   database:
     # 数据库名称
-    database: dbname 
+    name: dbname 
     # 数据库类型
     dbtype: mysql    
     # 数据库地址

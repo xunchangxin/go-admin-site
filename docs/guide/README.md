@@ -2,7 +2,7 @@
 pageClass: getting-started
 ---
 
-# 介绍
+# 项目介绍
 
 <a href="https://github.com/wenjianzhang/go-admin">
   <img src="https://github.com/wenjianzhang/go-admin/workflows/build/badge.svg" alt="go-admin">
