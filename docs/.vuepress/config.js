@@ -57,9 +57,7 @@ module.exports = {
             {
               title: '其他',
               collapsable: false,
-              children: [
-                '/guide/other/faq.md'
-              ]
+              children: ['/guide/other/faq.md']
             }
           ]
         }
@@ -76,7 +74,8 @@ module.exports = {
           {
             text: 'Donate',
             link: '/en/donate/'
-          }],
+          }
+        ],
         sidebar: {
           '/en/guide/': [
             {
@@ -92,9 +91,7 @@ module.exports = {
             {
               title: 'Other',
               collapsable: false,
-              children: [
-                
-              ]
+              children: []
             }
           ]
         }
@@ -128,8 +125,7 @@ function genEssentialsSidebar(type = '') {
     '/guide/ksks.md',
     '/guide/hjbs.md',
     '/guide/spjc.md',
-    '/guide/ide.md',
-    //'/guide/intro/tutorial01.md',
+    '/guide/ide.md'
   ]
   return mapArr.map(i => {
     return type + i
@@ -137,10 +133,7 @@ function genEssentialsSidebar(type = '') {
 }
 
 function genAdvancedSidebar(type = '') {
-  const mapArr = [
-    '/guide/intro/tutorial01.md',
-    '/guide/intro/tutorial02.md',
-  ]
+  const mapArr = ['/guide/intro/tutorial01.md', '/guide/intro/tutorial02.md']
   return mapArr.map(i => {
     return type + i
   })
