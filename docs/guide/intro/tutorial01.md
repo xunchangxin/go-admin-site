@@ -185,12 +185,13 @@ package apis
 import (
 	"github.com/gin-gonic/gin"
 	"go-admin/models"
-	"net/http"
+  "net/http"
+  "go-admin/tools/app"
 )
 
 func GetArticleList(c *gin.Context) {
 	
-	var res models.Response
+	var res app.Response
 	res.Data = "hello world ！"
 
 	c.JSON(http.StatusOK, res.ReturnOK())

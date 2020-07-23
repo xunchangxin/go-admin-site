@@ -2,7 +2,13 @@
 
 ## 服务
 
-### 设置工作路径
+### 设置GoPath
+
+:::tip
+如果你的 Go version >= 1.11，并且 GO111MODULE=on (Go MOdule模式) 那么请忽略以下 gopath 配置；
+:::
+
+#### gopath
 
 ```shell
 mkdir goadmin
