@@ -2,13 +2,13 @@
 
 ## 服务
 
-### 设置 GoPath
+### 工作路径
 
 :::tip
 请注意 Go version >= 1.11，并且 GO111MODULE=on (Go MOdule 模式)；
 :::
 
-#### gopath
+新建空文件夹
 
 ```shell
 mkdir dirname
