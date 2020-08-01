@@ -124,7 +124,7 @@ settings:
 - models： 数据访问层
 - pkg： 程序包
 - router： 路由以及中间件
-- statie： 上传静态文件
+- static： 上传静态文件
 - temp： 临时日志文件
 - middleware: 中间件
 - template： 模板文件

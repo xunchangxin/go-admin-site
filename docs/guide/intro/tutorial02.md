@@ -36,11 +36,13 @@ CREATE TABLE `article` (
   `title` varchar(128) DEFAULT NULL COMMENT '标题',
   `author` varchar(128) DEFAULT NULL COMMENT '作者',
   `content` varchar(255) DEFAULT NULL COMMENT '内容',
-  `created_at` timestamp NULL DEFAULT NULL,  //必须字段
-  `updated_at` timestamp NULL DEFAULT NULL,  //必须字段
-  `deleted_at` timestamp NULL DEFAULT NULL,  //必须字段
-  `create_by` varchar(128) DEFAULT NULL,     //必须字段
-  `update_by` varchar(128) DEFAULT NULL,     //必须字段
+	`status` int(1) DEFAULT NULL COMMENT '状态',
+	`publish_at` timestamp NULL DEFAULT NULL COMMENT '发布时间',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `create_by` varchar(128) DEFAULT NULL,
+  `update_by` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`article_id`),
   KEY `idx_article_deleted_at` (`deleted_at`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='文章';
