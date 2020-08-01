@@ -5,7 +5,7 @@
 ### 设置 GoPath
 
 :::tip
-如果你的 Go version >= 1.11，并且 GO111MODULE=on (Go MOdule 模式) 那么请忽略以下 gopath 配置；
+请注意 Go version >= 1.11，并且 GO111MODULE=on (Go MOdule 模式)；
 :::
 
 #### gopath
