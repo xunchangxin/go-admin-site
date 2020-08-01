@@ -1,4 +1,4 @@
-# 编写go-admin应用,第1步
+# 编写 go-admin 应用,第 1 步
 
 让我们通过示例来学习。
 
@@ -6,72 +6,81 @@
 
 它由两部分组成：
 
-* 前端页面。
+- 前端页面。
 
-* 后端api服务。
+- 后端 api 服务。
 
 我们假设你已经阅读了[开始](http://doc.zhangwj.com/go-admin-site/guide/ksks.html)
 
 ## 开始项目
 
-如果这是你第一次使用 go-admin 的话，你需要一些初始化设置。也就是说，你需要配置一个 go-admin 即一个项目实例需要的设置数据库或者也可以使用细目本身提供的sqlite3的体验数据库（部分功能不支持，如代码生成），目前推荐大家使用mysql数据库。
+如果这是你第一次使用 go-admin 的话，你需要一些初始化设置。也就是说，你需要配置一个 go-admin 即一个项目实例需要的设置数据库或者也可以使用细目本身提供的 sqlite3 的体验数据库（部分功能不支持，如代码生成），目前推荐大家使用 mysql 数据库。
 
 进入项目工作路径，打开 `config/settings.yml` 进行配置：
 
 ```yml
 settings:
-  application:  
-    # 项目启动环境            
-    mode: dev  # dev开发环境 test测试环境 prod线上环境；
-    host: 0.0.0.0  # 主机ip 或者域名，默认0.0.0.0
+  application:
+    # dev开发环境 test测试环境 prod线上环境
+    mode: dev
+    # 服务器ip，默认使用 0.0.0.0
+    host: 0.0.0.0
     # 服务名称
-    name: go-admin   
-    # 服务端口
-    port: 8000   
-    readtimeout: 1   
-    writertimeout: 2 
-  log:
-    # 日志文件存放路径
-    dir: temp/logs
+    name: testApp
+    # 端口号
+    port: 8000 # 服务端口号
+    readtimeout: 1
+    writertimeout: 2
+    # 数据权限功能开关
+    enabledp: false
+  logger:
+    # 日志存放路径
+    path: temp/logs
+    # 控制台日志
+    stdout: true
+    # 日志等级
+    level: all
+    # 业务日志开关
+    enabledbus: true
+    # 请求日志开关
+    enabledreq: false
+    # 数据库日志开关 dev模式，将自动开启
+    enableddb: false
   jwt:
-    # JWT加密字符串
+    # token 密钥，生产环境时及的修改
     secret: go-admin
-    # 过期时间单位：秒
+    # token 过期时间 单位：秒
     timeout: 3600
   database:
-    # 数据库名称
-    name: dbname 
-    # 数据库类型
-    dbtype: mysql    
-    # 数据库地址
-    host: 127.0.0.1  
-    # 数据库密码
-    password: password  
-    # 数据库端口
-    port: 3306       
-    # 数据库用户名
-    username: root   
+    # 数据库类型 mysql，sqlite3， postgres
+    driver: mysql
+    # 数据库连接字符串 mysql 缺省信息 charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    source: user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+  gen:
+    # 代码生成读取的数据库名称
+    dbname: dbname
+    # 代码生成是使用前端代码存放位置，需要指定到src文件夹，相对路径
+    frontpath: ../go-admin-ui/src
 ```
 
 配置中，我们需要修改 `database` 下边的属性信息：
 
-* database 数据库名称
-* dbtype 数据库类型，支持mysql
-* host 数据库地址，填写网络ip地址或者域名。mysql，如：127.0.0.1；
-* password 数据库密码
-* port 数据库端口号
-* username 数据库用户名
+`user:password@tcp(127.0.0.1:3306)/dbname`
+
+- dbname 数据库名称
+- password 数据库密码
+- user 数据库用户名
 
 还需修改 `application` 下边的属性信息：
 
-* logpath 日志文件路径，这里配置相对程序路径
+- logpath 日志文件路径，这里配置相对程序路径
 
 :::tip 建议
 你得避免使用 go 或 go-admin 的内部保留字来命名你的项目模块以等名称。避免产生组件冲突。
 :::
 
 :::tip 我的代码该放在哪？
-如果是曾经是原生PHP、JAVA、.Net 程序员，都会有项目标准的目录结构，当然 go-admin 也是相同的，也有自己的目录结构，这样利于项目更规范，协作更高效。
+如果是曾经是原生 PHP、JAVA、.Net 程序员，都会有项目标准的目录结构，当然 go-admin 也是相同的，也有自己的目录结构，这样利于项目更规范，协作更高效。
 :::
 
 让我们看一下 go-admin 的目录结构：
@@ -102,29 +111,28 @@ settings:
 ├── template
 ├── test
 └── tools
-
 ```
 
 这些目录和文件的用处是：
 
-* 最外层 go-admin 是项目根路径
-* apis： api
-* config： 配置相关的文件以及类
-* database： 数据持久层基类
-* docs： 接口文档
-* handler： 处理程序类
-* models： 数据访问层
-* pkg： 程序包
-* router： 路由以及中间件
-* statie： 上传静态文件
-* temp： 临时日志文件
-* middleware: 中间件
-* template： 模板文件
-* test： 测试
-* tools 工具类
-* main.go： 主入口
+- 最外层 go-admin 是项目根路径
+- apis： api
+- config： 配置相关的文件以及类
+- database： 数据持久层基类
+- docs： 接口文档
+- handler： 处理程序类
+- models： 数据访问层
+- pkg： 程序包
+- router： 路由以及中间件
+- statie： 上传静态文件
+- temp： 临时日志文件
+- middleware: 中间件
+- template： 模板文件
+- test： 测试
+- tools 工具类
+- main.go： 主入口
 
-----
+---
 
 ## 用于开发的服务器
 
@@ -137,7 +145,7 @@ settings:
 输出内容为下图，恭喜你！你已经成功了！
 
 <img class="no-margin" src="
-https://gitee.com/mydearzwj/image/raw/master/img/serversuccessv1.0.0.png"  height="500px" style="margin:0 auto;">
+https://gitee.com/mydearzwj/image/raw/master/img/serversuccessv1.1.0.png"  height="500px" style="margin:0 auto;">
 
 现在，服务器正在运行，浏览器访问 http://127.0.0.1:8000/。你将会看到 `go-admin` 文档，服务器已经运行了。
 
@@ -145,14 +153,14 @@ https://gitee.com/mydearzwj/image/raw/master/img/serversuccessv1.0.0.png"  heigh
 默认情况下，服务器设置为监听本机内部 IP 的 8000 端口。
 如果你想更换服务器的监听端口，请使用命令行参数。举个例子，下面的命令会使服务器监听 8080 端口：
 
-我们需要打开配置文件 `config/settings.yml`  
+我们需要打开配置文件 `config/settings.yml`
 
 ```shell
 application:
     port: 8000
 ```
 
-如果你想要修改服务器监听的IP，在端口之前输入新的。比如，为了监听所有服务器的公开IP（这你运行 Vagrant 或想要向网络上的其它电脑展示你的成果时很有用），使用：
+如果你想要修改服务器监听的 IP，在端口之前输入新的。比如，为了监听所有服务器的公开 IP（这你运行 Vagrant 或想要向网络上的其它电脑展示你的成果时很有用），使用：
 
 ```shell
 application:
@@ -163,17 +171,17 @@ application:
 
 :::
 
-----
+---
 
 ## 创建文章功能
 
 现在你的开发环境，已经配置好了，你可以开始干活了。
 
-在 go-admin 中，你只需要关注业务，不用再为基础功能操心，这样你就能专心写代码，而不是想着如何组建项目，如何设计权限管理，如何选择UI，在这里没有如何如何。
+在 go-admin 中，你只需要关注业务，不用再为基础功能操心，这样你就能专心写代码，而不是想着如何组建项目，如何设计权限管理，如何选择 UI，在这里没有如何如何。
 
 刚才已经讲过了项目的目录结构，在这里就不在赘述。
 
-----
+---
 
 ## 编写第一个接口
 
@@ -190,7 +198,7 @@ import (
 )
 
 func GetArticleList(c *gin.Context) {
-	
+
 	var res app.Response
 	res.Data = "hello world ！"
 
@@ -243,7 +251,6 @@ go build
 
 用你的浏览器访问 http://localhost:8000/articleList，你应该能够看见 "{"code":200,"data":"hello world ！","msg":""}" ，这是你在接口中定义的。
 
-
 :::tip 404 page not found
 
 如果你在这里得到了一个错误页面，检查一下你是不是正访问着http://localhost:8000/articleList 而不应该是 http://localhost:8000/。
@@ -256,7 +263,7 @@ router 注册类型，我们比较常用的就是 `GET`、`POST`、`PUT`、`DELE
 
 ### path
 
-path 是一个匹配 URL 的准则（有点正则表达式的意思），当go-admin 响应一个请求时，它会从注册的url 第一项开始，按照顺序一次匹配，直到找到匹配项。
+path 是一个匹配 URL 的准则（有点正则表达式的意思），当 go-admin 响应一个请求时，它会从注册的 url 第一项开始，按照顺序一次匹配，直到找到匹配项。
 
 这些准则不会匹配 GET 和 POST 参数或域名。例如，URL 在处理请求 http://www.zhangwj.com/articleList 时，它会尝试匹配 articleList 。处理请求 http://www.zhangwj.com/articleList?page=3 时，也只会尝试匹配 blog/list。
 

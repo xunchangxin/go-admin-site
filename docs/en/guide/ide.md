@@ -2,6 +2,8 @@
 
 In many IDEs, it is recommended to use `goland` IDE for debugging
 
+## SERVER
+
 1. Open configuration
 
 ![](https://gitee.com/mydearzwj/image/raw/master/img/ide1.png)

@@ -1,4 +1,4 @@
-# 编写go-admin应用,第2步
+# 编写 go-admin 应用,第 2 步
 
 这部分教程从 教程第 1 步 结尾的地方继续讲起。我们将建立数据库，创建您的第一个模型。
 
@@ -12,17 +12,23 @@
 
 ```shell
   database:
-    database: dbname
-    dbtype: mysql
-    host: 127.0.0.1
-    password: password
-    port: 3306
-    username: root
+    # 数据库类型 mysql，sqlite3， postgres
+    driver: mysql
+    # 数据库连接字符串 mysql 缺省信息 charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    source: user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+  gen:
+    # 代码生成读取的数据库名称
+    dbname: dbname
+    # 代码生成是使用前端代码存放位置，需要指定到src文件夹，相对路径
+    frontpath: ../go-admin-ui/src
 ```
 
-修改数据库配置信息。
+修改数据库配置信息；
+代码生成配置；
+1、 gen > dbname 此配置可以根据数据库名称来获取该数据库下所有 table，进行代码生成；
+2、 gen > frontpath 代码生成是使用前端代码存放位置，需要指定到 src 文件夹，相对路径;代码要求 go-admin 和 go-admin-ui 必须在同一级目录下
 
-当前我们先通过sql脚本的方式来创建数据库表信息。
+当前我们先通过 sql 脚本的方式来创建数据库表信息。[表结构定义需要查看](/guide/db.html)
 
 ```sql
 CREATE TABLE `article` (
@@ -30,11 +36,11 @@ CREATE TABLE `article` (
   `title` varchar(128) DEFAULT NULL COMMENT '标题',
   `author` varchar(128) DEFAULT NULL COMMENT '作者',
   `content` varchar(255) DEFAULT NULL COMMENT '内容',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `create_by` varchar(128) DEFAULT NULL,
-  `update_by` varchar(128) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,  //必须字段
+  `updated_at` timestamp NULL DEFAULT NULL,  //必须字段
+  `deleted_at` timestamp NULL DEFAULT NULL,  //必须字段
+  `create_by` varchar(128) DEFAULT NULL,     //必须字段
+  `update_by` varchar(128) DEFAULT NULL,     //必须字段
   PRIMARY KEY (`article_id`),
   KEY `idx_article_deleted_at` (`deleted_at`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='文章';
@@ -78,13 +84,12 @@ https://gitee.com/mydearzwj/image/raw/master/img/genimport2v1.0.0.png"  height="
 确定后，表结构进存储到了代码生成工具里，此时我们需要对导入数据进行编辑。
 
 <img class="no-margin" src="
-https://gitee.com/mydearzwj/image/raw/master/img/genimport3v1.0.0.png"  height="200px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
+https://gitee.com/mydearzwj/image/raw/master/img/genimport3v1.1.0.png"  height="200px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
 
 编辑红框里边的选项，之后点击保存。
 
 <img class="no-margin" src="
 https://gitee.com/mydearzwj/image/raw/master/img/genimport4v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
 
 ### 预览代码
 
@@ -93,131 +98,15 @@ https://gitee.com/mydearzwj/image/raw/master/img/genimport4v1.0.0.png"  height="
 <img class="no-margin" src="
 https://gitee.com/mydearzwj/image/raw/master/img/genimport5v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
 
+### 生成代码
 
-## 编写代码
+到这里我们的第一个程序进行的很顺利，下一步会更顺利， 点击`代码生成`，此时 前后端代码都会进入自己该到的位置，另外需要注意一点：如果需要带权限的代码，那就选择`代码生成【带权限】`，他们的区别就是路由注册时，一个添加的认证中间件，一个没有；
 
-到这里我们的第一个程序进行的很顺利，下一步我们在项目中创建文件，找到`apis` 文件夹和`models`文件夹，分别创建 demo.go（注意：实际项目中根据业务确定命名）。
-
-models/demo.go文件我们需要稍作修改，修改内容如下：
-
-当前文件 
-
-1. 全部 `if e.ArticleId != "" { ` 替换成 `if e.ArticleId != 0 { ` 。
-
-2. 删除以下内容：
-```
-  CreatedAt string `json:"createdAt" gorm:"type:timestamp;"` //
-
-	UpdatedAt string `json:"updatedAt" gorm:"type:timestamp;"` //
-
-	DeletedAt string `json:"deletedAt" gorm:"type:timestamp;"` // 
-```
-
-这个时候，models和apis已经创建好了。
-
-### 添加路由
-
-打开 router/router.go 文件，找到 
-`auth.Use(authMiddleware.MiddlewareFunc()).Use(middleware.AuthCheckRole())
-	{`
-
-添加一下内容：
-```go
-		auth.GET("/articleList",apis.GetArticleList)
-		auth.GET("/article/:articleId",apis.GetArticle)
-		auth.POST("/article",apis.InsertArticle)
-		auth.PUT("/article",apis.UpdateArticle)
-		auth.DELETE("/article/:articleId",apis.DeleteArticle)
-```
-
-到这一步我们的业务api已经写好了，重启前端服务，接下来开始处理页面显示。
-
-### 创建VIEWS 和 JS
-
-1. 打开前端项目 `src/api` 目录下，创建`article.js`，并把预览内容直接复制到文件；
-2. 打开`src/views` 目录，创建 `article` 文件夹，并在里边创建 `index.vue` ，并把预览内容直接复制到文件；
-
-index.vue 文件中需要对编辑对话框进行修改
-删除
-```js
-<el-form-item label="编码" prop="articleId">
-  <el-input v-model="form.articleId" placeholder="编码" />
-</el-form-item>
-```
-
-和
-
-```js
-<el-form-item label="" prop="createdAt">
-  <el-input v-model="form.createdAt" placeholder="" />
-</el-form-item>
-<el-form-item label="" prop="updatedAt">
-  <el-input v-model="form.updatedAt" placeholder="" />
-</el-form-item>
-<el-form-item label="" prop="deletedAt">
-  <el-input v-model="form.deletedAt" placeholder="" />
-</el-form-item>
-<el-form-item label="" prop="createdBy">
-  <el-input v-model="form.createdBy" placeholder="" />
-</el-form-item>
-<el-form-item label="" prop="updatedBy">
-  <el-input v-model="form.updatedBy" placeholder="" />
-</el-form-item>
-```
-
-此时前端项目已经开发完成。
+重启前端服务，接下来开始处理页面显示。
 
 ### 配置系统菜单
 
-1. 打开系统进入`系统管理`，点击`菜单管理`，`添加`菜单；首先创建目录。内容如下图：
-
-> 先添加一个目录：
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addmenu1v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-> 刷新一下列表中：
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addmenu2v1.0.0.png"  height="200px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-> 再添加一个菜单：
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addmenu3v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-
-### 配置系统api
-
-> 选择 `接口权限` 添加 `内容管理` 和 `文章管理`
-
-添加 `内容管理` 目录
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addapi1v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-添加 `文章管理` 菜单
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addapi2v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-> 分别创建增删改查以及列表接口，如下图
-
-添加 `创建` 接口
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addapi3v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-添加 `修改` 接口
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addapi4v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-添加 `删除` 接口
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addapi5v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-添加 `分页` 接口
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addapi6v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
-添加 `通过id查询` 接口，注意这里的路由地址配置
-
-<img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/addapi7v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
+1. 返回列表页，点击`生成配置`；api 的配置和菜单的配置直接进入数据库中；是不是很简单啊！
 
 ### 配置角色权限
 
@@ -225,14 +114,13 @@ index.vue 文件中需要对编辑对话框进行修改
 
 <img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/setrole1v1.0.0.png"  height="200px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
 
-> 选择超级管理员，点击修改，勾选我们刚才添加的菜单以及api接口，保存。
+> 选择超级管理员，点击修改，勾选我们刚才添加的菜单以及 api 接口，保存。
 
 <img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/setrole2v1.0.0.png"  height="400px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
 
 > 刷新页面，刚刚授权的菜单就出来了。
 
 <img class="no-margin" src="https://gitee.com/mydearzwj/image/raw/master/img/menu1v1.0.0.png"  height="300px" style="margin:0 auto;box-shadow: 5px 5px 5px #888888;">
-
 
 ### 操作内容管理
 
@@ -256,7 +144,7 @@ index.vue 文件中需要对编辑对话框进行修改
 
 ### 结束语
 
-OK！，内容到这里已经介绍了开始第一个go-admin应用的全部过程，虽然图片居多，主要也是编码内容比较少，希望大家能够掌握，如在使用中遇到了什么问题都可以在qq群或者微信群中沟通交流！谢谢！
+OK！，内容到这里已经介绍了开始第一个 go-admin 应用的全部过程，虽然图片居多，主要也是编码内容比较少，希望大家能够掌握，如在使用中遇到了什么问题都可以在 qq 群或者微信群中沟通交流！谢谢！
 
 :::tip 从哪里获得帮助：
 如果你在阅读本教程的过程中有任何疑问，可以前往[提交建议](https://github.com/wenjianzhang/go-admin/issues/new)。

@@ -20,6 +20,7 @@ module.exports = {
   themeConfig: {
     repo: 'wenjianzhang/go-admin',
     docsRepo: 'wenjianzhang/go-admin-site',
+    lastUpdated: '上次更新',
     docsDir: 'docs',
     editLinks: true,
     sidebarDepth: 3,
@@ -125,7 +126,8 @@ function genEssentialsSidebar(type = '') {
     '/guide/ksks.md',
     '/guide/hjbs.md',
     '/guide/spjc.md',
-    '/guide/ide.md'
+    '/guide/ide.md',
+    '/guide/db.md'
   ]
   return mapArr.map(i => {
     return type + i
