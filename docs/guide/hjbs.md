@@ -178,6 +178,7 @@ ps -aux | grep go-admin #查看运行用的进程
 
 ##### 上传 config 配置到服务器上
 
+```bash
 [root@iZ2ze505h9bgsbp83ct28pZ go-admin]# tree
 .
 ├── config
@@ -189,6 +190,7 @@ ps -aux | grep go-admin #查看运行用的进程
 │ └── sqlite.sql # 系统初始化配置不建议上传服务器
 ├── go-admin
 └── restart.sh
+```
 
 ##### 启动服务
 
