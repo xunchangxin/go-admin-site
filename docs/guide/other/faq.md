@@ -28,7 +28,6 @@ gyp ERR! node-gyp -v v3.8.0
 gyp ERR! not ok
 ```
 
-
 > 解决方案
 
 ```shell
@@ -38,14 +37,14 @@ sudo xcode-select --install
 如果之前安装过，请使用一下命令重置
 
 :::tip
-原因是Mac升级后，缺了xcode 的CLI 工具, 只要执行下面的命令来安装就可以了。
+原因是 Mac 升级后，缺了 xcode 的 CLI 工具, 只要执行下面的命令来安装就可以了。
 :::
 
 ```shell
 sudo xcode-select --reset
 ```
 
-----
+---
 
 ## 2. mysql connect error %v dial tcp 127.0.0.1:3306: connect: connection refused
 
@@ -57,30 +56,28 @@ $ ./go-admin
 
 > 解决方案
 
-修改配置文件中的 `mysql`  配置信息，配置文件的位置在 `config/settings.yml`，以下内容（只是配置文件中相关内容）是需要修改的配置内容
+修改配置文件中的 `mysql` 配置信息，配置文件的位置在 `config/settings.yml`，以下内容（只是配置文件中相关内容）是需要修改的配置内容
 
 ```shell
   database:
-    database: databasename
-    dbtype: mysql
-    host: 127.0.0.1
-    password: 123456
-    port: 3306
-    username: root
+    # 数据库类型 mysql，sqlite3， postgres
+    driver: mysql
+    # 数据库连接字符串 mysql 缺省信息 charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    source: user:password@tcp(127.0.0.1:3306)/dbname?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
 ```
 
 :::tip 从哪里获得帮助：
 如果你在阅读本教程的过程中有任何疑问，可以前往[提交建议](https://github.com/wenjianzhang/go-admin/issues/new)。
 :::
 
-
-### 使用element-ui的el-tree组件 setCheckedKeys 
+### 使用 element-ui 的 el-tree 组件 setCheckedKeys
 
 ```
 "TypeError: Cannot read property 'setCheckedKeys' of undefined"
 ```
 
 解决方案
+
 ```
 
 ```
